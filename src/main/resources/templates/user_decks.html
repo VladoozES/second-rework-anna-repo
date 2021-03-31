@@ -27,10 +27,10 @@
                 <td th:text="${deck.authorId}">Author ID</td>
                 <td th:text="${deck.cardCount}">Card Count</td>
                 <td >
-                	<a th:href="@{'/' + ${user.id} + '/decks/' + ${deck.deckId} + '/delete'}">Delete</a>
+                	<a th:href="@{'/' + ${userId} + '/decks/' + ${deck.deckId} + '/delete'}">Delete</a>
                 </td>
                 <td >
-                	<a th:href="@{'/' + ${user.id} + '/decks/' + ${deck.deckId} + '/edit'}">Edit</a>
+                	<a th:href="@{'/' + ${userId} + '/decks/' + ${deck.deckId} + '/edit'}">Edit</a>
                 </td>
 
             </tr>

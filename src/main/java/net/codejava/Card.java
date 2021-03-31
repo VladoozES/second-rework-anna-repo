@@ -11,6 +11,8 @@ public class Card {
 	private Long deckId;
 	private int learningDay = 1;
 	private int boxNum = 1;
+	private String firstSide;
+	private String secondSide;
 
 	protected Card() {
 	}
@@ -52,5 +54,21 @@ public class Card {
 
 	public void setBoxNum(int boxNum) {
 		this.boxNum = boxNum;
+	}
+
+	public String getFirstSide() {
+		return firstSide;
+	}
+
+	public void setFirstSide(String firstSide) {
+		this.firstSide = firstSide;
+	}
+
+	public String getSecondSide() {
+		return secondSide;
+	}
+
+	public void setSecondSide(String secondSide) {
+		this.secondSide = secondSide;
 	}
 }
