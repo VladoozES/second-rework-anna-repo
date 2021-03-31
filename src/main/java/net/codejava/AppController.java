@@ -29,6 +29,14 @@ public class AppController {
 		return "index";
 	}
 	
+	@RequestMapping("/{userId}/decks/{deckId}/cards")
+	public String viewDeckCards(@PathVariable(name = "userId") Long userId,
+			@PathVariable(name = "deckId") Long deckId, Model model) {
+		List<Card> listCards = cardService.listAllByDeckId(deckId);
+		
+		return "deck_cards";
+	}
+	
 	@RequestMapping("/{userId}/decks")
 	public String viewUserDecks(@PathVariable(name = "userId") Long userId, Model model) {
 		List<Deck> listDecks = deckService.listAllByUser(userId);

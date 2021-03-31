@@ -13,6 +13,10 @@ public class CardService {
 	@Autowired
 	private CardRepository repo;
 	
+	public List<Card> listAllByDeckId(Long deckId){
+		return repo.listAllByDeckId(deckId);
+	}
+	
 	public List<Card> listAll() {
 		return repo.findAll();
 	}
