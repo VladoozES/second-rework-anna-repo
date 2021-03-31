@@ -15,27 +15,32 @@ import org.springframework.web.servlet.ModelAndView;
 public class AppController {
 
 	@Autowired
-	private ProductService service; 
-	
+	private DeckService deckService;
+	@Autowired
+	private CardService cardService;
+	@Autowired
+	private UserService userService;
+		
 	@RequestMapping("/")
 	public String viewHomePage(Model model) { //вывод таблицы
-		List<Product> listProducts = service.listAll();
-		model.addAttribute("listProducts", listProducts);
+		
+		List<User> listUsers = userService.listAll();
+		model.addAttribute("listUsers", listUsers);
 		
 		return "index";
 	}
 	
-	@RequestMapping("/new")
-	public String showNewProductPage(Model model) { //создание нового продукта
+	/*@RequestMapping("/new")
+	public String showNewUserPage(Model model) { //создание нового продукта
 		Product product = new Product();
 		model.addAttribute("product", product);
 		
 		return "new_product";
-	}
+	}*/
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String saveProduct(@ModelAttribute("product") Product product) {
-		service.save(product);
+	public String saveProduct(@ModelAttribute("user") User user) {
+		userService.save(user);
 		
 		return "redirect:/";
 	}
@@ -43,15 +48,15 @@ public class AppController {
 	@RequestMapping("/edit/{id}")
 	public ModelAndView showEditProductPage(@PathVariable(name = "id") int id) {
 		ModelAndView mav = new ModelAndView("edit_product");
-		Product product = service.get(id);
-		mav.addObject("product", product);
+		User user = userService.get(id);
+		mav.addObject("user", user);
 		
 		return mav;
 	}
 	
-	@RequestMapping("/delete/{id}")
+	/*@RequestMapping("/delete/{id}")
 	public String deleteProduct(@PathVariable(name = "id") int id) {
 		service.delete(id);
 		return "redirect:/";		
-	}
+	}*/
 }
