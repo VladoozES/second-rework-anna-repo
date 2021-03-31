@@ -33,6 +33,7 @@ public class AppController {
 	public String viewDeckCards(@PathVariable(name = "userId") Long userId,
 			@PathVariable(name = "deckId") Long deckId, Model model) {
 		List<Card> listCards = cardService.listAllByDeckId(deckId);
+		model.addAttribute("listCards", listCards);
 		
 		return "deck_cards";
 	}
@@ -55,6 +56,16 @@ public class AppController {
 		return "deck_create";
 	}
 	
+	@RequestMapping("/{userId}/decks/{deckId}/cards/new")
+	public String viewCardCreate(@PathVariable(name = "userId") Long userId,
+			@PathVariable(name = "deckId") Long deckId, Model model) {
+		Card card = new Card();
+		card.setDeckId(deckId);
+		model.addAttribute("card", card);
+		
+		return "card_create";
+	}
+	
 	/*@RequestMapping("/new")
 	public String showNewUserPage(Model model) { //создание нового продукта
 		Product product = new Product();
@@ -64,8 +75,15 @@ public class AppController {
 	}*/
 	
 	@RequestMapping(value = "/deck_save", method = RequestMethod.POST)
-	public String saveUser(@ModelAttribute("deck") Deck deck) {
+	public String saveDeck(@ModelAttribute("deck") Deck deck) {
 		deckService.save(deck);
+		
+		return "redirect:/";
+	}
+
+	@RequestMapping(value = "/card_save", method = RequestMethod.POST)
+	public String saveCard(@ModelAttribute("card") Card card) {
+		cardService.save(card);
 		
 		return "redirect:/";
 	}
