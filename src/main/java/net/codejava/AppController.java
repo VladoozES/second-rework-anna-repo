@@ -38,6 +38,15 @@ public class AppController {
 		return "user_decks";
 	}
 	
+	@RequestMapping("/{userId}/decks/new")
+	public String viewDeckCreate(@PathVariable(name = "userId") Long userId, Model model) {
+		Deck deck = new Deck();
+		deck.setAuthorId(userId);
+		model.addAttribute("deck", deck);
+		
+		return "deck_create";
+	}
+	
 	/*@RequestMapping("/new")
 	public String showNewUserPage(Model model) { //создание нового продукта
 		Product product = new Product();
@@ -46,8 +55,15 @@ public class AppController {
 		return "new_product";
 	}*/
 	
+	@RequestMapping(value = "/deck_save", method = RequestMethod.POST)
+	public String saveUser(@ModelAttribute("deck") Deck deck) {
+		deckService.save(deck);
+		
+		return "redirect:/";
+	}
+	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String saveProduct(@ModelAttribute("user") User user) {
+	public String saveUser(@ModelAttribute("user") User user) {
 		userService.save(user);
 		
 		return "redirect:/";

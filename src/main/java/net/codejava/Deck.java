@@ -12,16 +12,10 @@ public class Deck {
 	private Long deckId;
 	private Long authorId;
 	private String name;
-	private int cardCount = 0;
+	private int cardCount;
 	
 	protected Deck() {
-
-	}
-	
-	protected Deck(Long authorId, String name) {
-		super();
-		this.authorId = authorId;
-		this.name = name;
+		cardCount = 0;
 	}
 	
 	@Id
