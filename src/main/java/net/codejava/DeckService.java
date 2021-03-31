@@ -12,6 +12,10 @@ public class DeckService {
 	@Autowired
 	private DeckRepository repo;
 	
+	public List<Deck> listAllByUser(Long userId){
+		return repo.listAllByUser(userId);
+	}
+	
 	public List<Deck> listAll() {
 		return repo.findAll();
 	}

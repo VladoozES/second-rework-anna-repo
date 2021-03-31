@@ -23,11 +23,19 @@ public class AppController {
 		
 	@RequestMapping("/")
 	public String viewHomePage(Model model) { //вывод таблицы
-		
 		List<User> listUsers = userService.listAll();
 		model.addAttribute("listUsers", listUsers);
 		
 		return "index";
+	}
+	
+	@RequestMapping("/{userId}/decks")
+	public String viewUserDecks(@PathVariable(name = "userId") Long userId, Model model) {
+		List<Deck> listDecks = deckService.listAllByUser(userId);
+		model.addAttribute("listDecks", listDecks);
+		model.addAttribute("userId", userId);
+		
+		return "user_decks";
 	}
 	
 	/*@RequestMapping("/new")
