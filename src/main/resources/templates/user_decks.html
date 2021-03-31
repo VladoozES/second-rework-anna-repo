@@ -17,7 +17,6 @@
                 <th>Name</th>
                 <th>Deck ID</th>
                 <th>Author ID</th>
-                <th>Card Count</th>
             </tr>
         </thead>
         <tbody>
@@ -25,7 +24,6 @@
             	<td th:text="${deck.name}">Name</td>
                 <td th:text="${deck.deckId}">Deck ID</td>
                 <td th:text="${deck.authorId}">Author ID</td>
-                <td th:text="${deck.cardCount}">Card Count</td>
                 <td >
                 	<a th:href="@{'/' + ${userId} + '/decks/' + ${deck.deckId} + '/delete'}">Delete</a>
                 </td>

@@ -12,6 +12,10 @@ public class DeckService {
 	@Autowired
 	private DeckRepository repo;
 	
+	public void increaseCardsCount(Long deckId) {
+		repo.increaseCardsCount(deckId);
+	}
+	
 	public List<Deck> listAllByUser(Long userId){
 		return repo.listAllByUser(userId);
 	}

@@ -38,6 +38,15 @@ public class AppController {
 		return "deck_cards";
 	}
 	
+	@RequestMapping("/{userId}/decks/{deckId}/cards/repeat")
+	public String viewDeckCardsRepeat(@PathVariable(name = "userId") Long userId,
+			@PathVariable(name = "deckId") Long deckId, Model model) {
+		List<Card> repeatListCards = cardService.listAllForRepeatByDeckId(deckId);
+		model.addAttribute("repeatListCards", repeatListCards);
+		
+		return "repeat_cards";
+	}
+	
 	@RequestMapping("/{userId}/decks")
 	public String viewUserDecks(@PathVariable(name = "userId") Long userId, Model model) {
 		List<Deck> listDecks = deckService.listAllByUser(userId);
