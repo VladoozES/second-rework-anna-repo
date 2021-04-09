@@ -10,7 +10,7 @@
 	<div align="center">
 		<h1>Create New Card</h1>
 		<br />
-		<form action="#" th:action="@{/card_save}" th:object="${card}"
+		<form action="#" th:action="@{/{userId}/decks/{deckId}/cards/card_save(userId=${userId},deckId=${deckId})}" th:object="${card}"
 			method="post">
 
 			<table border="0" cellpadding="10">

@@ -71,6 +71,8 @@ public class AppController {
 		Card card = new Card();
 		card.setDeckId(deckId);
 		model.addAttribute("card", card);
+		model.addAttribute("userId", userId);
+		model.addAttribute("deckId", deckId);
 		
 		return "card_create";
 	}
@@ -90,11 +92,13 @@ public class AppController {
 		return "redirect:/";
 	}
 
-	@RequestMapping(value = "/card_save", method = RequestMethod.POST)
-	public String saveCard(@ModelAttribute("card") Card card) {
+	@RequestMapping(value = "/{userId}/decks/{deckId}/cards/card_save", method = RequestMethod.POST)
+	public String saveCard(@ModelAttribute("card") Card card,
+			@PathVariable(name = "userId") Long userId,
+			@PathVariable(name = "deckId") Long deckId) {
 		cardService.save(card);
 		
-		return "redirect:/";
+		return "redirect:/" + userId + "/decks/" + deckId + "/cards";
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
