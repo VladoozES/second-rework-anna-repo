@@ -38,13 +38,42 @@ public class AppController {
 		return "deck_cards";
 	}
 	
-	@RequestMapping("/{userId}/decks/{deckId}/cards/repeat")
-	public String viewDeckCardsRepeat(@PathVariable(name = "userId") Long userId,
+	@RequestMapping("/{userId}/decks/{deckId}/cards/fsrepeat")
+	public String viewDeckCardsFirstSideRepeat(@PathVariable(name = "userId") Long userId,
 			@PathVariable(name = "deckId") Long deckId, Model model) {
 		List<Card> repeatListCards = cardService.listAllForRepeatByDeckId(deckId);
+		String[] answerArray = new String[repeatListCards.size()];
 		model.addAttribute("repeatListCards", repeatListCards);
+		model.addAttribute("answerArray", answerArray);
+		model.addAttribute("userId", userId);
+		model.addAttribute("deckId", deckId);
 		
-		return "repeat_cards";
+		return "repeat_first_side_cards";
+	}
+	
+	@RequestMapping("/{userId}/decks/{deckId}/cards/ssrepeat")
+	public String viewDeckCardsSecondSideRepeat(@PathVariable(name = "userId") Long userId,
+			@PathVariable(name = "deckId") Long deckId, Model model) {
+		List<Card> repeatListCards = cardService.listAllForRepeatByDeckId(deckId);
+		String[] answerArray = new String[repeatListCards.size()];
+		model.addAttribute("repeatListCards", repeatListCards);
+		model.addAttribute("answerArray", answerArray);
+		model.addAttribute("userId", userId);
+		model.addAttribute("deckId", deckId);
+		
+		return "repeat_second_side_cards";
+	}
+	
+	@RequestMapping("/{userId}/decks/{deckId}/cards/fsrepeat/control")
+	public String viewDeckCardsFirstSideRepeatControl(
+			@ModelAttribute("repeatListCards") List<Card> repeatListCards,
+			@ModelAttribute("answerArray") String[] answerArray,
+			@PathVariable(name = "userId") Long userId,
+			@PathVariable(name = "deckId") Long deckId, Model model) {
+		model.addAttribute("repeatListCards", repeatListCards);
+		model.addAttribute("answerArray", answerArray);
+		
+		return "repeat_first_side_cards_control";
 	}
 	
 	@RequestMapping("/{userId}/decks")

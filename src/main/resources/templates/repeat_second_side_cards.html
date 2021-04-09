@@ -13,14 +13,14 @@
     <table border="1" cellpadding="10">
         <thead>
             <tr>
-                <th>First Side</th>
                 <th>Second Side</th>
+                <th>Your Answer</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="card : ${repeatListCards}">
-            	<td th:text="${card.firstSide}">First Side</td>
-                <td th:text="${card.secondSide}">Second Side</td>
+            <tr th:each="card,iter : ${repeatListCards}">
+            	<td th:text="${card.secondSide}">Second Side</td>
+                <td><input type="text" th:value="*{answerArray[__${iter.index}__]}" /></td>
             </tr>
         </tbody>
     </table>
