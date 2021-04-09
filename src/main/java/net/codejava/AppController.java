@@ -61,6 +61,7 @@ public class AppController {
 		Deck deck = new Deck();
 		deck.setAuthorId(userId);
 		model.addAttribute("deck", deck);
+		model.addAttribute("userId", userId);
 		
 		return "deck_create";
 	}
@@ -85,11 +86,12 @@ public class AppController {
 		return "new_product";
 	}*/
 	
-	@RequestMapping(value = "/deck_save", method = RequestMethod.POST)
-	public String saveDeck(@ModelAttribute("deck") Deck deck) {
+	@RequestMapping(value = "/{userId}/decks/deck_save", method = RequestMethod.POST)
+	public String saveDeck(@ModelAttribute("deck") Deck deck,
+			@PathVariable(name = "userId") Long userId) {
 		deckService.save(deck);
 		
-		return "redirect:/";
+		return "redirect:/" + userId + "/decks";
 	}
 
 	@RequestMapping(value = "/{userId}/decks/{deckId}/cards/card_save", method = RequestMethod.POST)
@@ -101,12 +103,12 @@ public class AppController {
 		return "redirect:/" + userId + "/decks/" + deckId + "/cards";
 	}
 	
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String saveUser(@ModelAttribute("user") User user) {
 		userService.save(user);
 		
 		return "redirect:/";
-	}
+	}//*/
 	
 	@RequestMapping("/edit/{id}")
 	public ModelAndView showEditProductPage(@PathVariable(name = "id") int id) {
