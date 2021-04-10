@@ -144,6 +144,17 @@ public class AppController {
 		return "new_product";
 	}*/
 	
+	@RequestMapping(value = "/{userId}/decks/{deckId}/cards/fsrepeat/replanning/save", method = RequestMethod.POST)
+	public String saveReplanConfigs(@ModelAttribute("configForm") ReplanConfigForm configForm,
+			@PathVariable(name = "userId") Long userId,
+			@PathVariable(name = "deckId") Long deckId) {
+		for (var i = 0; i < configForm.getConfigs().size(); i++)
+			cardService.saveReplanUpdates(configForm.getConfigs().get(i).getCardId(),
+					configForm.getConfigs().get(i).getNewBoxNum());
+		
+		return "redirect:/" + userId + "/decks/" + deckId + "/cards";
+	}
+	
 	@RequestMapping(value = "/{userId}/decks/deck_save", method = RequestMethod.POST)
 	public String saveDeck(@ModelAttribute("deck") Deck deck,
 			@PathVariable(name = "userId") Long userId) {

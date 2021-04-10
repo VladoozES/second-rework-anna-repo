@@ -13,6 +13,10 @@ public class CardService {
 	@Autowired
 	private CardRepository repo;
 	
+	public void saveReplanUpdates(Long cardId, int newBoxNum) {
+		repo.saveReplanUpdates(cardId, newBoxNum);
+	}
+	
 	public int getBoxNumOnId(Long cardId) {
 		return repo.getBoxNumOnId(cardId);
 	}
