@@ -1,5 +1,6 @@
 package net.codejava;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +43,13 @@ public class AppController {
 	public String viewDeckCardsFirstSideRepeat(@PathVariable(name = "userId") Long userId,
 			@PathVariable(name = "deckId") Long deckId, Model model) {
 		List<Card> repeatListCards = cardService.listAllForRepeatByDeckId(deckId);
-		String[] answerArray = new String[repeatListCards.size()];
-		model.addAttribute("repeatListCards", repeatListCards);
-		model.addAttribute("answerArray", answerArray);
+		AnswerForm answerForm = new AnswerForm();
+		for (var i = 0; i < repeatListCards.size(); i++) {
+			answerForm.addAnswer(new Answer(repeatListCards.get(i).getCardId(),
+					repeatListCards.get(i).getFirstSide(),
+					repeatListCards.get(i).getSecondSide()));
+		}
+		model.addAttribute("answerForm", answerForm);
 		model.addAttribute("userId", userId);
 		model.addAttribute("deckId", deckId);
 		
@@ -54,8 +59,8 @@ public class AppController {
 	@RequestMapping("/{userId}/decks/{deckId}/cards/ssrepeat")
 	public String viewDeckCardsSecondSideRepeat(@PathVariable(name = "userId") Long userId,
 			@PathVariable(name = "deckId") Long deckId, Model model) {
-		List<Card> repeatListCards = cardService.listAllForRepeatByDeckId(deckId);
-		String[] answerArray = new String[repeatListCards.size()];
+		List<Card> repeatListCards = (ArrayList<Card>) cardService.listAllForRepeatByDeckId(deckId);
+		Answer[] answerArray = new Answer[repeatListCards.size()];
 		model.addAttribute("repeatListCards", repeatListCards);
 		model.addAttribute("answerArray", answerArray);
 		model.addAttribute("userId", userId);
@@ -66,14 +71,22 @@ public class AppController {
 	
 	@RequestMapping("/{userId}/decks/{deckId}/cards/fsrepeat/control")
 	public String viewDeckCardsFirstSideRepeatControl(
-			@ModelAttribute("repeatListCards") List<Card> repeatListCards,
-			@ModelAttribute("answerArray") String[] answerArray,
+			@ModelAttribute("answerForm") AnswerForm answerForm,
 			@PathVariable(name = "userId") Long userId,
 			@PathVariable(name = "deckId") Long deckId, Model model) {
-		model.addAttribute("repeatListCards", repeatListCards);
-		model.addAttribute("answerArray", answerArray);
+		model.addAttribute("answerForm", answerForm);
 		
 		return "repeat_first_side_cards_control";
+	}
+	
+	@RequestMapping("/{userId}/decks/{deckId}/cards/fsrepeat/replanning")
+	public String viewDeckCardsFirstSideRepeatReplanning(
+			@ModelAttribute("answerForm") AnswerForm answerForm,
+			@PathVariable(name = "userId") Long userId,
+			@PathVariable(name = "deckId") Long deckId, Model model) {
+		model.addAttribute("answerForm", answerForm);
+		
+		return "repeat_first_side_cards_replanning";
 	}
 	
 	@RequestMapping("/{userId}/decks")

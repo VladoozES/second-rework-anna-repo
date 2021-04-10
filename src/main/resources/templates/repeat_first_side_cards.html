@@ -10,7 +10,8 @@
 <div align="center">
     <h1>Cards For Repeat</h1>
     <br/><br/>
-    <form action="#" th:action="@{/{userId}/decks/{deckId}/cards/fsrepeat/control(userId=${userId},deckId=${deckId})}" method="post">
+    <form action="#" th:action="@{/{userId}/decks/{deckId}/cards/fsrepeat/control(userId=${userId},deckId=${deckId})}" th:object="${answerForm}"
+    method="post">
 	    <table border="1" cellpadding="10">
 	        <thead>
 	            <tr>
@@ -19,12 +20,16 @@
 	            </tr>
 	        </thead>
 	        <tbody>
-	            <tr th:each="card,iter : ${repeatListCards}">
-	            	<td th:text="${card.firstSide}">First Side</td>
-	                <td><input type="text" th:value="*{answerArray[__${iter.index}__]}" /></td>
+	            <tr th:each="answer,iter : ${answerForm.answers}">
+	            	<td th:text="${answer.firstSide}">First Side</td>
+	            	<input type="hidden" th:field="*{answers[__${iter.index}__].cardId}" />
+	            	<input type="hidden" th:field="*{answers[__${iter.index}__].firstSide}" />
+	            	<input type="hidden" th:field="*{answers[__${iter.index}__].secondSide}" />
+	            	<td><input type="text" th:field="*{answers[__${iter.index}__].textAnswer}" /></td>
 	            </tr>
 	        </tbody>
 	    </table>
+		<button type="submit">Save Answer</button>
 	</form>
 </div>    
 </body>
