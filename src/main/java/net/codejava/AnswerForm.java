@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AnswerForm {
-	public List<Answer> answers;
+	private List<Answer> answers;
 	
 	protected AnswerForm() {
 		answers = new ArrayList<Answer>();

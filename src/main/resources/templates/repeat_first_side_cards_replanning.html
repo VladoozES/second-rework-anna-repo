@@ -9,7 +9,7 @@
 
 <div align="center">
     <h1>Answer Control</h1>
-    <form action="#" th:action="@{/{userId}/decks/{deckId}/cards/fsrepeat/replanning(userId=${userId},deckId=${deckId})}" th:object="${answerForm}"
+    <form action="#" th:action="@{/{userId}/decks/{deckId}/cards/fsrepeat/replanning/save(userId=${userId},deckId=${deckId})}" th:object="${configForm}"
     method="post">
 	    <table border="1" cellpadding="10">
 	        <thead>
@@ -17,7 +17,9 @@
 	                <th>First Side</th>
 	                <th>Second Side</th>
 	                <th>Your Answer</th>
-	                <th colspan="2">True?</th>
+	                <th>Truth</th>
+	                <th>Recommendation</th>
+	                <th>Replanning</th>
 	            </tr>
 	        </thead>
 	        <tbody>
@@ -25,16 +27,13 @@
 	            	<td th:text="${answer.firstSide}">First Side</td>
 	            	<td th:text="${answer.secondSide}">Second Side</td>
 	                <td th:text="${answer.textAnswer}">Your Answer</td>
-	            	<input type="hidden" th:field="*{answers[__${iter.index}__].cardId}" />
-	            	<input type="hidden" th:field="*{answers[__${iter.index}__].firstSide}" />
-	            	<input type="hidden" th:field="*{answers[__${iter.index}__].secondSide}" />
-	            	<input type="hidden" th:field="*{answers[__${iter.index}__].textAnswer}" />
-	                <td><input type="radio" value="true" th:field="*{answers[__${iter.index}__].truth}" />Yes</td>
-	                <td><input type="radio" value="false" th:field="*{answers[__${iter.index}__].truth}" />No</td>
+	                <td th:text="${answer.truth}">Truth</td>
+	                <td th:text="${messageArray[__${iter.index}__]}">Recommendation</td>
+	            	<input type="hidden" th:field="*{configs[__${iter.index}__].cardId}" />
+	                <td><input type="text" th:field="*{configs[__${iter.index}__].newBoxNum}" /></td>
 	            </tr>
 	        </tbody>
 	    </table>
-		<button type="submit">Save Control</button>
 	</form>
 </div>    
 </body>

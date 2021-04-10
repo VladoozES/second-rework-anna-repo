@@ -84,7 +84,23 @@ public class AppController {
 			@ModelAttribute("answerForm") AnswerForm answerForm,
 			@PathVariable(name = "userId") Long userId,
 			@PathVariable(name = "deckId") Long deckId, Model model) {
+		ReplanConfigForm configForm = new ReplanConfigForm();
+		String[] messageArray = new String[answerForm.getAnswers().size()];
+		for (var i = 0; i < answerForm.getAnswers().size(); i++) {
+			configForm.addConfig(new ReplanConfig(answerForm.getAnswers().get(i).getCardId()));
+			if (answerForm.getAnswers().get(i).getTruth())
+				messageArray[i] = "Рекомендуется не понижать интервал (сейчас 1 раз в " +
+						cardService.getBoxNumOnId(answerForm.getAnswers().get(i).getCardId()) +
+						" дня/дней)";
+			else messageArray[i] = "Рекомендуется понизить интервал (сейчас 1 раз в " +
+					cardService.getBoxNumOnId(answerForm.getAnswers().get(i).getCardId()) +
+					" дня/дней)";
+		}
+		
+		
 		model.addAttribute("answerForm", answerForm);
+		model.addAttribute("configForm", configForm);
+		model.addAttribute("messageArray", messageArray);
 		
 		return "repeat_first_side_cards_replanning";
 	}

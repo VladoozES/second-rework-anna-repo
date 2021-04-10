@@ -12,4 +12,7 @@ public interface CardRepository extends JpaRepository<Card, Long> {
 	@Query(value = "select * from card c where c.deck_id=?1 and c.learning_day%c.box_num=0",
 			nativeQuery = true)
 	List<Card> listAllForRepeatByDeckId(Long deckId);
+	
+	@Query(value = "select box_num from card c where c.card_id=?1 limit 1", nativeQuery = true)
+	int getBoxNumOnId(Long cardIf);
 }
