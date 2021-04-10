@@ -14,7 +14,6 @@
 	    <table border="1" cellpadding="10">
 	        <thead>
 	            <tr>
-	            	<th></th>
 	                <th>First Side</th>
 	                <th>Second Side</th>
 	                <th>Your Answer</th>
@@ -26,7 +25,8 @@
 	            	<td th:text="${answer.firstSide}">First Side</td>
 	            	<td th:text="${answer.secondSide}">Second Side</td>
 	                <td th:text="${answer.textAnswer}">Your Answer</td>
-	                
+	                <td><input type="radio" value="true" th:field="*{answers[__${iter.index}__].truth}" />Yes</td>
+	                <td><input type="radio" value="false" th:field="*{answers[__${iter.index}__].truth}" />No</td>
 	            </tr>
 	        </tbody>
 	    </table>

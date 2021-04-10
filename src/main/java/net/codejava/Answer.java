@@ -5,7 +5,7 @@ public class Answer {
 	private String firstSide;
 	private String secondSide;
 	public String textAnswer;
-	private boolean truth;
+	private Boolean truth;
 	
 	protected Answer(){
 		
@@ -25,11 +25,11 @@ public class Answer {
 		this.textAnswer = textAnswer;
 	}
 
-	public boolean isTruth() {
+	public Boolean getTruth() {
 		return truth;
 	}
 
-	public void setTruth(boolean truth) {
+	public void setTruth(Boolean truth) {
 		this.truth = truth;
 	}
 
